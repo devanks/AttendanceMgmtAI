@@ -1,0 +1,23 @@
+{
+  "name": "attendancemgmtaifrontend",
+  "version": "1.0.0",
+  "description": "An app designed to help faculty take attendance of a cass with a simple photo of the class.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/devanks/AttendanceMgmtAI.git"
+  },
+  "keywords": [
+    "Attendance;Management;IP;Image",
+    "processing;"
+  ],
+  "author": "Devan K S, Harikrishnan Unnikrishnan Pillai, Bharath S Kumar",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/devanks/AttendanceMgmtAI/issues"
+  },
+  "homepage": "https://github.com/devanks/AttendanceMgmtAI#readme"
+}
