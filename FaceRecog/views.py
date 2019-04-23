@@ -24,7 +24,7 @@ def check_if_teacher(user):
 # @user_passes_test(email_check)
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
-    success_url = reverse_lazy('accounts_login')
+    success_url = reverse_lazy('account_login')
     template_name = 'signup.html'
 
 
