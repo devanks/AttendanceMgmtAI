@@ -4,6 +4,7 @@
 
 	<h1>Login API test</h1>
 	{% if user.is_authenticated %}
+		<div class="w3-container">
 		<p>Welcome {{ user.username }} !!!</p>
 		<p><a href="{% url 'socialaccount_connections' %}">Add 3rd party login</a></p>
 
@@ -18,7 +19,7 @@
 			{% endif %}
 
 		<p><a href="{% url 'account_logout' %}">Log out</a></p>
-
+		</div>
 	{% else %}
 
 		<p><a href="{% url 'account_signup' %}">Sign Up</a></p>
@@ -26,5 +27,6 @@
 		<p><a href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
 
 	{% endif %}
+
 {% endblock %}
 
