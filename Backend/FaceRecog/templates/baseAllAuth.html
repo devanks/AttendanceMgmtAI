@@ -2,41 +2,50 @@
 <html>
   <head>
     <title>{% block head_title %}{% endblock %}</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.4.2.min.css"/>
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"/> -->
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.4.2.min.css"/> -->
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block extra_head %}
     {% endblock %}
   </head>
   <body>
     {% block body %}
-
-    {% if messages %}
-    <div>
-      <strong>Messages:</strong>
-      <ul>
-        {% for message in messages %}
-        <li>{{message}}</li>
-        {% endfor %}
-      </ul>
-    </div>
-    {% endif %}
-	{% block menu %}
-    <div>
-      <strong>Menu:</strong>
-      <ul>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        {% else %}
-        <li><a href="{% url 'account_login' %}">Sign In</a></li>
-        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
-        {% endif %}
-      </ul>
-    </div>
+	<div class="w3-bar w3-teal w3-container  ">
+			<a href="{% url 'home' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
+			{% block menu %}
+			<div class="w3-dropdown-hover">
+			  <button class="w3-button" ">
+				<i class="fa fa-navicon"></i>	 <i class="fa fa-caret-down"></i>
+			  </button>
+			  <div class="w3-dropdown-content w3-bar-block w3-card">
+				{% if user.is_authenticated %}
+				<a  href="{% url 'account_email' %}" class="w3-bar-item w3-button w3-mobile">Change E-mail</a>
+				<a  href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-mobile">Sign Out<i class="fa fa-sign-out w3-right"></i></a>
+				{% else %}
+				<a href="{% url 'account_login' %}" class="w3-bar-item w3-button w3-mobile">Sign In<i class="fa fa-sign-in w3-right"></i></a>
+				<a href="{% url 'account_signup' %}" class="w3-bar-item w3-button w3-mobile">Sign Up<i class="fa fa-user w3-right"></i></a>
+				{% endif %}
+			  </div>
+			</div>
+			{% if messages %}
+				<div class="w3-dropdown-hover">
+				<button class="w3-button" ">
+				<i class="fa fa-envelope"></i> <i class="fa fa-caret-down"></i>
+				</button>
+				<div class="w3-dropdown-content w3-bar-block w3-card w3-mobile">
+					{% for message in messages %}
+					{{message}}
+					{% endfor %}
+				</div>
+				</div>
+			{% endif %}
+	</div>
 	{% endblock %}
+	<div class="w3-container">
     {% block content %}
     {% endblock %}
+	</div>
     {% endblock %}
     {% block extra_body %}
     {% endblock %}
