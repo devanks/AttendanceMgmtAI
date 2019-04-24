@@ -40,7 +40,7 @@ class StudentHomePageView(generic.TemplateView):
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 class TeacherHomePageView(generic.TemplateView):
-    template_name = 'test.html'
+    template_name = 'teacher_portal.html'
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 @csrf_exempt
