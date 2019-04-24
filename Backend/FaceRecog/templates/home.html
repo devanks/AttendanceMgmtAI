@@ -8,25 +8,25 @@
 		
 			<p>Welcome {{ user.username }} !!!</p>
 			<div class="w3-cell-row">
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'socialaccount_connections' %}">Add 3rd party login</a></p>
+			<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'socialaccount_connections' %}">Add 3rd party login</a>
 
 				{% if user.is_superuser %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'admin:index' %}"> ADMIN PORTAL</a></p>
+				<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'admin:index' %}"> ADMIN PORTAL</a>
 				{% endif %}
 
 				{% if user.is_staff %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'teacher_portal' %}"> TEACHER</a></p>
+				<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'teacher_portal' %}"> TEACHER</a>
 				{% else %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'student_portal' %}"> STUDENT</a></p>
+				<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'student_portal' %}"> STUDENT</a>
 				{% endif %}
 
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_logout' %}">Log out</a></p>
+			<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_logout' %}">Log out</a>
 			</div>
 		{% else %}
 			<div class="w3-cell-row">
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_signup' %}">Sign Up</a></p>
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_login' %}">Log In </a></p>
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
+			<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_signup' %}">Sign Up</a>
+			<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_login' %}">Log In </a>
+			<a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% provider_login_url 'google' %}">Log In with Gmail</a>
 			</div>
 		{% endif %}
 	</div>
