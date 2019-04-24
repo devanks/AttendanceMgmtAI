@@ -31,18 +31,18 @@ class SignUp(generic.CreateView):
 class HomePageView(generic.TemplateView):
     template_name = 'home.html'
 
-@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 class UploadTestView(generic.TemplateView):
     template_name = 'simple_upload.html'
 
 class StudentHomePageView(generic.TemplateView):
     template_name = 'test.html'
 
-@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 class TeacherHomePageView(generic.TemplateView):
     template_name = 'test.html'
 
-@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 @csrf_exempt
 def detect(request):
     # initialize the data dictionary to be returned by the request
