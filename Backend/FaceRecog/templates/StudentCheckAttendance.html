@@ -1,0 +1,14 @@
+{% extends "baseSansMenu.html" %}
+{% block content %}
+	<div class="w3-panel w3-mobile">
+	{% if request.method == "POST" %}
+			HEYYYYY
+	{% else %}
+		<form method="POST" action="{% url 'StudentsList' %}" class=""><div class="w3-container">{% csrf_token %}
+			{{ form }}
+			<button class="w3-btn w3-teal w3-round-large" type="submit" class="">Select</button>
+		</form></div>
+		
+	{% endif %}
+	</div>
+{% endblock %}

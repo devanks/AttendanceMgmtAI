@@ -14,15 +14,7 @@ from .models import StudentTookClass, TeacherTeachesSubject
 from django.urls import reverse_lazy
 
 
-
-from django.http import HttpResponse
-from django.utils.html import escape
-
-
-
-
-
-from .forms import CustomUserCreationForm, chooseSubject
+from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -46,7 +38,21 @@ class UploadTestView(generic.TemplateView):
     template_name = 'simple_upload.html'
 
 class StudentHomePageView(generic.TemplateView):
-    template_name = 'test.html'
+    template_name = 'student_portal.html'
+
+def StudentUploadPhoto(request):
+    template_name = 'StudentUploadPhoto.html'
+
+def StudentCheckAttendance(request):
+    template_name = 'StudentCheckAttendance.html'
+    if request.method == "POST":
+        form_class = checkAttendanceOfSubject(request.POST)
+        StudentAttendanceList = StudentTookClass.objects.filter(student__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
+        return render(request, template_name, {'StudentAttendanceList':StudentAttendanceList})
+    else:
+        form_class = checkAttendanceOfSubject()
+        form_class.fields["Teacher_Teaches_Subject"].queryset = StudentTookClass.objects.filter(student__user__username=request.user.username)
+        return render(request, template_name, {'form': form_class})
 
 def StudentTookClassList(request):
     if request.method == "POST":

@@ -46,6 +46,8 @@ urlpatterns = [
     path('teacher_portal/', FRView.TeacherHomePageView, name= 'teacher_portal'),
     path('teacher_portal/StudentsList', FRView.StudentTookClassList, name= 'StudentsList'),
     path('student_portal/', FRView.StudentHomePageView.as_view(), name= 'student_portal'),
+    path('student_portal/upload_photo', FRView.StudentUploadPhoto, name= 'uploadPhoto'),
+    path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
     path('check', FRView.UploadTestView, name= 'test_home'),
     path('check1', TemplateView.as_view(template_name='simple_upload.html'), name= 'test_home_test'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
