@@ -3,30 +3,30 @@
 	{% load socialaccount %}
 
 	<h1>Login API test</h1>
-		<div class="w3-container">
+		<div class="w3-container w3-mobile">
 		{% if user.is_authenticated %}
 		
 			<p>Welcome {{ user.username }} !!!</p>
 			<div class="w3-cell-row">
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'socialaccount_connections' %}">Add 3rd party login</a></p>
+			<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'socialaccount_connections' %}">Add 3rd party login</a></p>
 
 				{% if user.is_superuser %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'admin:index' %}"> ADMIN PORTAL</a></p>
+				<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'admin:index' %}"> ADMIN PORTAL</a></p>
 				{% endif %}
 
 				{% if user.is_staff %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'teacher_portal' %}"> TEACHER</a></p>
+				<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'teacher_portal' %}"> TEACHER</a></p>
 				{% else %}
-				<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'student_portal' %}"> STUDENT</a></p>
+				<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'student_portal' %}"> STUDENT</a></p>
 				{% endif %}
 
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_logout' %}">Log out</a></p>
+			<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_logout' %}">Log out</a></p>
 			</div>
 		{% else %}
 			<div class="w3-cell-row">
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_signup' %}">Sign Up</a></p>
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_login' %}">Log In </a></p>
-			<p><a class="w3-container w3-cell w3-button w3-round-large w3-teal" href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
+			<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_signup' %}">Sign Up</a></p>
+			<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% url 'account_login' %}">Log In </a></p>
+			<p><a class="w3-container w3-mobile w3-cell w3-button w3-round-large w3-teal" href="{% provider_login_url 'google' %}">Log In with Gmail</a></p>
 			</div>
 		{% endif %}
 	</div>
