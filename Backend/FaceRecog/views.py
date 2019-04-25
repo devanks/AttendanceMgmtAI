@@ -60,7 +60,7 @@ def StudentTookClassList(request):
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def TeacherHomePageView(request):
-    return render(request, 'test.html', {})
+    return render(request, 'teacher_portal.html', {})
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 @csrf_exempt

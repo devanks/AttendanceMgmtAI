@@ -1,13 +1,18 @@
 {% extends "baseSansMenu.html" %}
 {% block content %}
 	{% if request.method == "POST" %}
-	<h1>{% for student in studentsList %}
-		{{ student.student.rollNumber }} {{ student.Teacher_Teaches_Subject.subject.code }}
-	{% endfor %}</h1>
+			{% if studentsList %}
+			<h1>{% for student in studentsList %}
+				{{ student.student.rollNumber }} {{ student.Teacher_Teaches_Subject.subject.code }}
+			{% endfor %}</h1>
+			{% else %}
+				<div class="w3-panel w3-teal"> You have no students enrolled for the course just yet.</div>
+			{% endif %}
 	{% else %}
-	<form method="POST" action="{% url 'StudentsList' %}" class="">{% csrf_token %}
-		{{ form }}
-		<button type="submit" class="">Save</button>
-	</form>
+		<form method="POST" action="{% url 'StudentsList' %}" class="">{% csrf_token %}
+			{{ form }}
+			<button type="submit" class="">Select</button>
+		</form>
+		
 	{% endif %}
 {% endblock %}

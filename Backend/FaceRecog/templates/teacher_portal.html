@@ -1,4 +1,6 @@
 {% extends "baseSansMenu.html" %}
 {% block content %}
-	<a href="{% url 'StudentsList' %}"/>
+	<h1>Teacher Portal</h1>
+	<p><a href="{% url 'StudentsList' %}">List of students enrolled</a></p>
+	<p><a href="{% url 'test_home_test' %}">Upload photo for Recognition</a></p>
 {% endblock %}
