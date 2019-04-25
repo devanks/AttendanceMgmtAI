@@ -1,0 +1,13 @@
+{% extends "baseSansMenu.html" %}
+{% block content %}
+	{% if request.method == "POST" %}
+	<h1>{% for student in studentsList %}
+		{{ student.student.rollNumber }} {{ student.Teacher_Teaches_Subject.subject.code }}
+	{% endfor %}</h1>
+	{% else %}
+	<form method="POST" action="{% url 'StudentsList' %}" class="">{% csrf_token %}
+		{{ form }}
+		<button type="submit" class="">Save</button>
+	</form>
+	{% endif %}
+{% endblock %}

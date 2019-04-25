@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 # import the necessary packages
 from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
@@ -9,10 +9,20 @@ import json
 import cv2
 import face_recognition
 import pickle
+from .models import StudentTookClass, TeacherTeachesSubject
 
 from django.urls import reverse_lazy
 
-from .forms import CustomUserCreationForm
+
+
+from django.http import HttpResponse
+from django.utils.html import escape
+
+
+
+
+
+from .forms import CustomUserCreationForm, chooseSubject
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -38,9 +48,19 @@ class UploadTestView(generic.TemplateView):
 class StudentHomePageView(generic.TemplateView):
     template_name = 'test.html'
 
+def StudentTookClassList(request):
+    if request.method == "POST":
+        form_class = chooseSubject(request.POST)
+        studentsList = StudentTookClass.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['subject'])
+        return render(request, 'studentsList.html', {'studentsList':studentsList})
+    else:
+        form_class = chooseSubject()
+        form_class.fields["subject"].queryset = TeacherTeachesSubject.objects.filter(teacher__user__username=request.user.username)
+        return render(request, 'studentsList.html', {'form': form_class})
+
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
-class TeacherHomePageView(generic.TemplateView):
-    template_name = 'teacher_portal.html'
+def TeacherHomePageView(request):
+    return render(request, 'test.html', {})
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 @csrf_exempt
