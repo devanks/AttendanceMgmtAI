@@ -23,7 +23,8 @@ def check_if_teacher(user):
     return user.is_staff
 # def email_check(user):
     # return user.email.endswith('@nitc.ac.in')
-
+def check_if_student(user):
+    return user.is_authenticated
 # @user_passes_test(email_check)
 class SignUp(generic.CreateView):
     form_class = CustomUserCreationForm
@@ -31,7 +32,6 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
-class HomePageView(generic.TemplateView):
 def HomePageView(request):
     template_name = 'home.html'
     if request.user.is_staff:
@@ -64,6 +64,7 @@ def StudentUploadPhoto(request):
     check = "check"
     return render(request, template_name,{check: 'check'})
 
+@user_passes_test(check_if_student, login_url='/accounts/login/?=please-login/', redirect_field_name=None)
 def StudentCheckAttendance(request):
     template_name = 'StudentCheckAttendance.html'
     if request.method == "POST":
@@ -75,17 +76,19 @@ def StudentCheckAttendance(request):
         # form_class.fields["Teacher_Teaches_Subject"].queryset = STC.objects.filter(student__user__username=request.user.username)
         return render(request, template_name, {'form': form_class})
 
+@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def StudentTookClassList(request):
+    template_name = 'studentsList.html'
     if request.method == "POST":
         form_class = chooseSubject(request.POST)
         studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['subject'])
-        return render(request, 'studentsList.html', {'studentsList':studentsList})
+        return render(request, template_name, {'studentsList':studentsList})
     else:
         form_class = chooseSubject()
         form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
-        return render(request, 'studentsList.html', {'form': form_class})
+        return render(request, template_name, {'form': form_class})
 
-# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def TeacherHomePageView(request):
     return render(request, 'teacher_portal.html', {})
 
