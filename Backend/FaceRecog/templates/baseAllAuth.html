@@ -8,18 +8,35 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     {% block extra_head %}
     {% endblock %}
+	<script>
+		function openDropdownContentNavBar()
+		{
+			var x = document.getElementById("NavBarContentDropdown");
+			if (x.className.indexOf("w3-show") == -1)
+			{
+				x.className += " w3-show";
+			}
+			else
+			{ 
+				x.className = x.className.replace("w3-show", "");
+			}
+		}
+	</script>
   </head>
   <body>
     {% block body %}
-	<div class="w3-bar w3-teal w3-container  ">
-			<a href="{% url 'home' %}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
+	<div class="w3-bar w3-teal w3-container w3-mobile">
+			<a href="{% url 'home' %}" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>
 			{% block menu %}
-			<div class="w3-dropdown-hover">
+			<div class="w3-dropdown-click w3-mobile" onclick="openDropdownContentNavBar()">
 			  <button class="w3-button" ">
 				<i class="fa fa-navicon"></i>	 <i class="fa fa-caret-down"></i>
 			  </button>
-			  <div class="w3-dropdown-content w3-bar-block w3-card">
+			  <div id="NavBarContentDropdown"class="w3-dropdown-content w3-bar-block w3-card">
 				{% if user.is_authenticated %}
+				{% if user.is_superuser %}
+				<a href="{% url 'admin:index' %}" class="w3-bar-item w3-button w3-mobile">Admin Portal</a>
+				{% endif %}
 				<a  href="{% url 'socialaccount_connections' %}" class="w3-bar-item w3-button w3-mobile">Add 3rd Party Login</a>
 				<a  href="{% url 'account_email' %}" class="w3-bar-item w3-button w3-mobile">Change E-mail</a>
 				<a  href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-mobile">Sign Out<i class="fa fa-sign-out w3-right"></i></a>
@@ -30,7 +47,7 @@
 			  </div>
 			</div>
 			{% if messages %}
-				<div class="w3-dropdown-hover">
+				<div class="w3-dropdown-hover w3-mobile">
 				<button class="w3-button" ">
 				<i class="fa fa-envelope"></i> <i class="fa fa-caret-down"></i>
 				</button>
@@ -41,9 +58,13 @@
 				</div>
 				</div>
 			{% endif %}
+			{% if user.is_authenticated %}
+			<!-- change below link to profile page-->
+			<a href="/" class="w3-bar-item w3-button w3-right w3-mobile"><i class="fa fa-user-circle-o"></i> {{ user.first_name }} {{ user.last_name }}</a>
+			{% endif %}
 	</div>
 	{% endblock %}
-	<div class="w3-panel w3-mobile w3-padding-64 w3-display-topmiddle ">
+	<div class="w3-panel w3-mobile w3-padding-16 w3-display-topmiddle" style="top:auto">
     {% block content %}
     {% endblock %}
 	</div>
