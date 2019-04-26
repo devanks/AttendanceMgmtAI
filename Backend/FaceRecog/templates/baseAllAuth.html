@@ -20,6 +20,7 @@
 			  </button>
 			  <div class="w3-dropdown-content w3-bar-block w3-card">
 				{% if user.is_authenticated %}
+				<a  href="{% url 'socialaccount_connections' %}" class="w3-bar-item w3-button w3-mobile">Add 3rd Party Login</a>
 				<a  href="{% url 'account_email' %}" class="w3-bar-item w3-button w3-mobile">Change E-mail</a>
 				<a  href="{% url 'account_logout' %}" class="w3-bar-item w3-button w3-mobile">Sign Out<i class="fa fa-sign-out w3-right"></i></a>
 				{% else %}
