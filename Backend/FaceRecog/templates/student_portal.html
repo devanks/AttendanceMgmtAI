@@ -1,0 +1,6 @@
+{% extends "baseSansMenu.html" %}
+{% block content %}
+	<h1>Student Portal</h1>
+	<p><a class="w3-btn w3-teal w3-round-large w3-mobile" href="{% url 'uploadPhoto' %}">Upload photo for Recognition</a></p>
+	<p><a class="w3-btn w3-teal w3-round-large w3-mobile" href="{% url 'checkAttendance' %}">Check attendance of subjects</a></p>
+{% endblock %}

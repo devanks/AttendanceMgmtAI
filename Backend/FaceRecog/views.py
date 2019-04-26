@@ -9,20 +9,13 @@ import json
 import cv2
 import face_recognition
 import pickle
-from .models import StudentTookClass, TeacherTeachesSubject
+from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR
 
 from django.urls import reverse_lazy
 
+import datetime
 
-
-from django.http import HttpResponse
-from django.utils.html import escape
-
-
-
-
-
-from .forms import CustomUserCreationForm, chooseSubject
+from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -42,20 +35,37 @@ class HomePageView(generic.TemplateView):
     template_name = 'home.html'
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
-class UploadTestView(generic.TemplateView):
+def UploadTestView(request):
     template_name = 'simple_upload.html'
+    form_class = chooseSubject()
+    form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
+    return render(request, template_name, {'form':form_class})
 
 class StudentHomePageView(generic.TemplateView):
-    template_name = 'test.html'
+    template_name = 'student_portal.html'
+
+def StudentUploadPhoto(request):
+    template_name = 'StudentUploadPhoto.html'
+
+def StudentCheckAttendance(request):
+    template_name = 'StudentCheckAttendance.html'
+    if request.method == "POST":
+        form_class = checkAttendanceOfSubject(request.POST)
+        StudentAttendanceList = STC.objects.filter(student__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
+        return render(request, template_name, {'StudentAttendanceList':StudentAttendanceList})
+    else:
+        form_class = checkAttendanceOfSubject()
+        # form_class.fields["Teacher_Teaches_Subject"].queryset = STC.objects.filter(student__user__username=request.user.username)
+        return render(request, template_name, {'form': form_class})
 
 def StudentTookClassList(request):
     if request.method == "POST":
         form_class = chooseSubject(request.POST)
-        studentsList = StudentTookClass.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['subject'])
+        studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
         return render(request, 'studentsList.html', {'studentsList':studentsList})
     else:
         form_class = chooseSubject()
-        form_class.fields["subject"].queryset = TeacherTeachesSubject.objects.filter(teacher__user__username=request.user.username)
+        form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
         return render(request, 'studentsList.html', {'form': form_class})
 
 # @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
@@ -133,6 +143,10 @@ def detect(request):
         data["success"] = True
         data["names"] = names
     # return a JSON response
+    if(data["success"] == True):
+        for username in data["names"]:
+            x = STC.objects.get(student__user__username=username,Teacher_Teaches_Subject__teacher__user__username=request.user.username,Teacher_Teaches_Subject__subject__id=request.POST["subject"])
+            AR.objects.create(studentTookClass = x,DateOfClass = datetime.datetime.now(),isPresent = "True") 
     return JsonResponse(data)
 
 

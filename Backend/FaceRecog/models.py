@@ -64,8 +64,6 @@ class StudentTookClass(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
     Teacher_Teaches_Subject = models.ForeignKey(TeacherTeachesSubject,on_delete=models.CASCADE)
     presentAttendance = models.IntegerField(default=0, validators=[MaxValueValidator(100), MinValueValidator(0)]) #automate value each time record added to attendance
-    
-	# attendance = models.ManyToManyField(Subject, through='StudentTookClass', through_fields=('student', 'Teacher_Teaches_Subject'),)
     verbose_name = "Class taken by student"
     verbose_name_plural = "Classes taken by different students"
     def __str__(self):
@@ -73,7 +71,7 @@ class StudentTookClass(models.Model):
 
 class AttendanceRecord(models.Model):
     studentTookClass = models.ForeignKey(StudentTookClass,on_delete=models.CASCADE)
-    DateOfClass = models.DateField(auto_now_add=True)
+    DateOfClass = models.DateField()
     isPresent = models.BooleanField()
-    def __str__(self):
-        return self.studentTookClass
+    # def __str__(self):
+        # return self.studentTookClass
