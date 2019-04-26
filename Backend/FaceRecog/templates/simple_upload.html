@@ -10,15 +10,20 @@
 			{% endfor %}
 		</ul>
 	{% else %}
+	<div class="w3-card">
 	  <form method="post" enctype="multipart/form-data" action="{% url 'test_home' %}">{% csrf_token %} 
-		{{ form }}
-		<input type="file" name="image">
-		<button class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding " type="submit">Upload</button>
+		<div class="w3-margin"> {{ form }} </div>
+		<input class="w3-input w3-margin-left w3-padding-32" type="file" name="image">
+		<button class="w3-panel w3-margin-left  w3-mobile w3-btn w3-teal w3-round-large w3-padding " type="submit">Upload</button>
+		<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-right w3-margin-right  " href="{% url 'home' %}">Back</a>
 	  </form>
+	
 		
 	{% endif %}
-	
-	<div class="w3-panel w3-mobile w3-margin-left">
-	<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large  " href="{% url 'teacher_portal' %}">Back</a>
 
+	
+	<!-- <div class="w3-panel w3-mobile w3-margin-left"> -->
+	
+	<!-- <a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding  " href="{% url 'home' %}">Back</a> -->
+	</div>
 {% endblock %}

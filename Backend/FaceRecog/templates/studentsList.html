@@ -2,10 +2,12 @@
 {% block content %}
 	<div class="w3-panel w3-mobile">
 	{% if request.method == "POST" %}
+			<h2>Class List for {{ studentsList.first.Teacher_Teaches_Subject.subject.code }}: </h2>
 			{% if studentsList %}
-			<h1>{% for student in studentsList %}
-				{{ student.student.rollNumber }} {{ student.Teacher_Teaches_Subject.subject.code }}
-			{% endfor %}</h1>
+			<ul>
+			{% for student in studentsList %}
+				<li><h3>{{ student.student.rollNumber }}</h3></li>
+			{% endfor %}</ul>
 			{% else %}
 				<div class="w3-panel w3-teal"> You have no students enrolled for the course just yet.</div>
 			{% endif %}
