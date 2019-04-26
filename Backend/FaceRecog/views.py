@@ -34,12 +34,17 @@ class SignUp(generic.CreateView):
 class HomePageView(generic.TemplateView):
     template_name = 'home.html'
 
-# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def UploadTestView(request):
     template_name = 'simple_upload.html'
-    form_class = chooseSubject()
-    form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
-    return render(request, template_name, {'form':form_class})
+    if request.method == "POST":
+        form_class = chooseSubject(request.POST)
+        nameList = detect(request)
+        return render(request, template_name, {'nameList':nameList})
+    else:
+        form_class = chooseSubject()
+        form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
+        return render(request, template_name, {'form':form_class})
 
 class StudentHomePageView(generic.TemplateView):
     template_name = 'student_portal.html'
@@ -72,7 +77,7 @@ def StudentTookClassList(request):
 def TeacherHomePageView(request):
     return render(request, 'teacher_portal.html', {})
 
-# @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
+@user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 @csrf_exempt
 def detect(request):
     # initialize the data dictionary to be returned by the request
@@ -145,9 +150,12 @@ def detect(request):
     # return a JSON response
     if(data["success"] == True):
         for username in data["names"]:
-            x = STC.objects.get(student__user__username=username,Teacher_Teaches_Subject__teacher__user__username=request.user.username,Teacher_Teaches_Subject__subject__id=request.POST["subject"])
-            AR.objects.create(studentTookClass = x,DateOfClass = datetime.datetime.now(),isPresent = "True") 
-    return JsonResponse(data)
+            if(STC.objects.filter(student__user__username=username).filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__id=request.POST["subject"]).count()>=1):
+                x = STC.objects.filter(student__user__username=username).filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__id=request.POST["subject"])[0]
+                AR.objects.create(studentTookClass = x,DateOfClass = datetime.datetime.now(),isPresent = "True")
+            else:
+                data["success"]=False
+    return data["names"]
 
 
 # NEED NOT BE CHANGED
