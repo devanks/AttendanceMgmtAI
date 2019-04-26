@@ -61,6 +61,8 @@ def StudentHomePageView(request):
 @user_passes_test(check_if_student, login_url='/accounts/login/?=please-login/', redirect_field_name=None)
 def StudentUploadPhoto(request):
     template_name = 'StudentUploadPhoto.html'
+    check = "check"
+    return render(request, template_name,{check: 'check'})
 
 def StudentCheckAttendance(request):
     template_name = 'StudentCheckAttendance.html'
