@@ -71,7 +71,7 @@ class StudentTookClass(models.Model):
 
 class AttendanceRecord(models.Model):
     studentTookClass = models.ForeignKey(StudentTookClass,on_delete=models.CASCADE)
-    DateOfClass = models.DateField(auto_now_add=True)
+    DateOfClass = models.DateField()
     isPresent = models.BooleanField()
-    def __str__(self):
-        return self.studentTookClass
+    # def __str__(self):
+        # return self.studentTookClass
