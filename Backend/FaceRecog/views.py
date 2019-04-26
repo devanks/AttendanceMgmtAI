@@ -61,7 +61,7 @@ def StudentCheckAttendance(request):
 def StudentTookClassList(request):
     if request.method == "POST":
         form_class = chooseSubject(request.POST)
-        studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
+        studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['subject'])
         return render(request, 'studentsList.html', {'studentsList':studentsList})
     else:
         form_class = chooseSubject()

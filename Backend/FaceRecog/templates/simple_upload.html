@@ -5,7 +5,10 @@
   <form method="post" enctype="multipart/form-data" action="{% url 'faceDetect' %}">
 	{{ form }}
     <input type="file" name="image">
-    <button type="submit">Upload</button>
+    <button class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding " type="submit">Upload</button>
   </form>
+  	<div class="w3-panel w3-mobile w3-margin-left">
+	<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large  " href="{% url 'teacher_portal' %}">Back</a>
+	</div>
 
 {% endblock %}
