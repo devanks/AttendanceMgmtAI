@@ -39,16 +39,15 @@ from django.views.generic import TemplateView
 # from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
-    path('', FRView.HomePageView.as_view(), name='home'),
+    path('', FRView.HomePageView, name='home'),
     path('admin/', admin.site.urls, name='admin'),
     path('accounts/signup/', FRView.SignUp.as_view(), name='signup'),
     path('accounts/', include('allauth.urls')),
     path('teacher_portal/', FRView.TeacherHomePageView, name= 'teacher_portal'),
     path('teacher_portal/StudentsList', FRView.StudentTookClassList, name= 'StudentsList'),
-    path('student_portal/', FRView.StudentHomePageView.as_view(), name= 'student_portal'),
+    path('student_portal/', FRView.StudentHomePageView, name= 'student_portal'),
     path('student_portal/upload_photo', FRView.StudentUploadPhoto, name= 'uploadPhoto'),
     path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
     path('check', FRView.UploadTestView, name= 'test_home'),
-    # path('check1', TemplateView.as_view(template_name='simple_upload.html'), name= 'test_home_test'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
 ]

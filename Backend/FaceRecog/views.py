@@ -32,7 +32,12 @@ class SignUp(generic.CreateView):
 
 
 class HomePageView(generic.TemplateView):
+def HomePageView(request):
     template_name = 'home.html'
+    if request.user.is_staff:
+        return redirect('teacher_portal/')
+    else:
+        return redirect('student_portal/')
 
 @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def UploadTestView(request):
@@ -46,9 +51,14 @@ def UploadTestView(request):
         form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
         return render(request, template_name, {'form':form_class})
 
-class StudentHomePageView(generic.TemplateView):
-    template_name = 'student_portal.html'
 
+
+@user_passes_test(check_if_student, login_url='/accounts/login/?=please-login/', redirect_field_name=None)
+def StudentHomePageView(request):
+    template_name = 'student_portal.html'
+    return render(request, template_name,{})
+	
+@user_passes_test(check_if_student, login_url='/accounts/login/?=please-login/', redirect_field_name=None)
 def StudentUploadPhoto(request):
     template_name = 'StudentUploadPhoto.html'
 
