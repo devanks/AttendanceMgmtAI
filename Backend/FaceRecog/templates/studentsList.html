@@ -6,20 +6,22 @@
 			{% if studentsList %}
 			<ul>
 			{% for student in studentsList %}
-				<li><h3>{{ student.student.rollNumber }}</h3></li>
+				<li><h4>{{ student.student.rollNumber }}</h4></li>
 			{% endfor %}</ul>
 			{% else %}
 				<div class="w3-panel w3-teal"> You have no students enrolled for the course just yet.</div>
 			{% endif %}
+			<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large  " href="{% url 'teacher_portal' %}">Back</a>
 	{% else %}
-		<form method="POST" action="{% url 'StudentsList' %}" class=""><div class="w3-container">{% csrf_token %}
+		<form method="POST" action="{% url 'StudentsList' %}" class=""><div class="w3-container w3-mobile">{% csrf_token %}
 			{{ form }}
-			<button class="w3-btn w3-teal w3-round-large" type="submit" class="">Select</button>
+			<button class="w3-btn w3-teal w3-round-large w3-mobile" type="submit" class="">Select</button>
+			<a class=" w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding  " href="{% url 'teacher_portal' %}">Back</a>
 		</form></div>
 		
 	{% endif %}
 	</div>
-	<div class="w3-panel w3-mobile w3-margin-left">
-	<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large  " href="{% url 'teacher_portal' %}">Back</a>
-	</div>
+	<!-- <div class="w3-panel w3-mobile w3-margin-left"> -->
+	
+	<!-- </div> -->
 {% endblock %}
