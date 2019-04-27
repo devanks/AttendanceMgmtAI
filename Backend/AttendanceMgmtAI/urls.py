@@ -51,7 +51,6 @@ urlpatterns = [
     path('student_portal/', FRView.StudentHomePageView, name= 'student_portal'),
     path('student_portal/upload_photo', FRView.StudentUploadPhoto, name= 'uploadPhoto'),
     path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
-    path('check', FRView.UploadTestView, name= 'test_home'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]
