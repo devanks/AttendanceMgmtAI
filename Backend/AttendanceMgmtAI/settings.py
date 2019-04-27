@@ -47,7 +47,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'FaceRecog',
     'django_extensions',
+    'bootstrap_datepicker_plus',
 ]
+
+BOOTSTRAP4 = {
+    'include_jquery': True,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

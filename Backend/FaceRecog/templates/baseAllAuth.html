@@ -13,9 +13,9 @@
     {% block extra_head %}
     {% endblock %}
 	<script>
-		function openDropdownContentNavBar()
+		function openDropdownContentNavBar(y)
 		{
-			var x = document.getElementById("NavBarContentDropdown");
+			var x = document.getElementById(y);
 			if (x.className.indexOf("w3-show") == -1)
 			{
 				x.className += " w3-show";
@@ -32,7 +32,7 @@
 	<div class="w3-bar w3-teal w3-container w3-mobile">
 			<a href="{% url 'home' %}" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>
 			{% block menu %}
-			<div class="w3-dropdown-click w3-mobile" onclick="openDropdownContentNavBar()">
+			<div class="w3-dropdown-click w3-mobile" onclick="openDropdownContentNavBar('NavBarContentDropdown')">
 			  <button class="w3-button" ">
 				<i class="fa fa-navicon"></i>	 <i class="fa fa-caret-down"></i>
 			  </button>
@@ -51,11 +51,11 @@
 			  </div>
 			</div>
 			{% if messages or live_notify_badge > 0 %}
-				<div class="w3-dropdown-hover w3-mobile">
+				<div class="w3-dropdown-click w3-mobile" onclick="openDropdownContentNavBar('NavBarMessagesDropdown')">
 				<button class="w3-button" ">
 				<i class="fa fa-envelope"></i> <i class="fa fa-caret-down"></i>
 				</button>
-				<div class="w3-dropdown-content w3-bar-block w3-card w3-mobile">
+				<div id="NavBarMessagesDropdown" class="w3-dropdown-content w3-bar-block w3-card">
 					{% for message in messages %}
 					<div class="w3-bar-item w3-button w3-mobile">{{message}}</div>
 					{% endfor %}
