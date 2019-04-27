@@ -22,9 +22,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '#h=1jzmw(4op2ceqyu&q%0h&$&=+3*w08+6bpqzjxt=+0as64e'
 
-ADMIN_MEDIA_PREFIX = '/media/admin/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
