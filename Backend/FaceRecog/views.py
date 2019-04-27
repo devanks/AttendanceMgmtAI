@@ -91,7 +91,7 @@ def StudentTookClassList(request):
     template_name = 'studentsList.html'
     if request.method == "POST":
         form_class = chooseSubject(request.POST)
-        studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['subject'])
+        studentsList = STC.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(Teacher_Teaches_Subject__id=request.POST['subject'])
         return render(request, template_name, {'studentsList':studentsList})
     else:
         form_class = chooseSubject()
