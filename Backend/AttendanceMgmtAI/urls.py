@@ -36,6 +36,8 @@ from django.conf.urls import url
 from FaceRecog import views as FRView
 from django.views.generic import TemplateView
 
+import notifications.urls
+
 # from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
@@ -50,4 +52,5 @@ urlpatterns = [
     path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
     path('check', FRView.UploadTestView, name= 'test_home'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
+    url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
 ]

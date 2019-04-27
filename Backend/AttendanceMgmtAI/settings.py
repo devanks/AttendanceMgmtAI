@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'notifications',
     'rest_framework',
     'FaceRecog',
     'django_extensions',

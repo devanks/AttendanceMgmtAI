@@ -3,13 +3,16 @@ from django.shortcuts import render,redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.views import generic
 from django.http import JsonResponse
+from django.contrib import messages
 import numpy as np
 import urllib
 import json
 import cv2
 import face_recognition
 import pickle
-from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR
+from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR, Student as student, Teacher as teacher
+
+from notifications.signals import notify
 
 from django.urls import reverse_lazy
 
@@ -44,8 +47,15 @@ def UploadTestView(request):
     template_name = 'simple_upload.html'
     if request.method == "POST":
         form_class = chooseSubject(request.POST)
-        nameList = detect(request)
-        return render(request, template_name, {'nameList':nameList})
+        nameListStructure = detect(request)
+        # if (nameListStructure["success"] == True):
+            # messages.success(request, 'Attendance Marked!')
+        # else:
+            # messages.error(request, 'Attendance NOT Marked!')
+        attendanceMarked = ": I have marked your attendance for the subject " + TTS.objects.filter(id=request.POST["subject"])[0].subject.name
+        for name in nameListStructure["names"]:
+            notify.send(sender=request.user, recipient=student.objects.get(user__username=name).user, verb=attendanceMarked)
+        return render(request, template_name, {'nameList':nameListStructure["names"]})
     else:
         form_class = chooseSubject()
         form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
@@ -170,7 +180,7 @@ def detect(request):
                 AR.objects.create(studentTookClass = x,DateOfClass = datetime.datetime.now(),isPresent = "True")
             else:
                 data["success"]=False
-    return data["names"]
+    return data
 
 
 # NEED NOT BE CHANGED
