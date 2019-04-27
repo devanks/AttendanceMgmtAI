@@ -37,7 +37,7 @@ class CustomStudentTookClassAdmin(admin.ModelAdmin):
 
 class CustomAttendanceRecordAdmin(admin.ModelAdmin):
     model = AttendanceRecord
-    list_display = ('studentTookClass', 'DateOfClass', 'isPresent')
+    list_display = ('student', 'session', 'isPresent')
 
 admin.site.register(CustomUser, CustomUserAdmin)
 admin.site.register(Student, CustomStudentAdmin)

@@ -69,9 +69,11 @@ class StudentTookClass(models.Model):
     def __str__(self):
         return self.student.rollNumber+" : "+self.Teacher_Teaches_Subject.teacher.user.username+" : "+self.Teacher_Teaches_Subject.subject.code
 
+class SessionRecord(models.Model):
+    Teacher_Teaches_Subject = models.ForeignKey(TeacherTeachesSubject,on_delete=models.CASCADE)
+    DateOfClass = models.DateTimeField()
+
 class AttendanceRecord(models.Model):
-    studentTookClass = models.ForeignKey(StudentTookClass,on_delete=models.CASCADE)
-    DateOfClass = models.DateField()
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    session = models.ForeignKey(SessionRecord,on_delete=models.CASCADE)
     isPresent = models.BooleanField()
-    # def __str__(self):
-        # return self.studentTookClass

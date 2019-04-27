@@ -10,7 +10,7 @@ import json
 import cv2
 import face_recognition
 import pickle
-from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR, Student as student, Teacher as teacher
+from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR, SessionRecord as SR, Student as student, Teacher as teacher, CustomUser as CU
 
 from notifications.signals import notify
 
@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 import datetime
 
-from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject
+from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject, createSession, chooseSession
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -35,6 +35,30 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
+
+
+
+
+
+def CreateSessionView(request):
+    template_name = 'CreateSession.html'
+    if request.method == "POST":
+        formSession = createSession(request.POST)
+        formSession.save()
+        return render(request, 'simple_upload.html',{'formSession': formSession})
+    else:
+        form = createSession()
+        form.fields["Teacher_Teaches_Subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
+        return render(request, template_name,{'form': form})
+
+
+
+
+
+
+
+
+
 def HomePageView(request):
     template_name = 'home.html'
     if request.user.is_staff:
@@ -46,20 +70,16 @@ def HomePageView(request):
 def UploadTestView(request):
     template_name = 'simple_upload.html'
     if request.method == "POST":
-        form_class = chooseSubject(request.POST)
-        nameListStructure = detect(request)
-        # if (nameListStructure["success"] == True):
-            # messages.success(request, 'Attendance Marked!')
-        # else:
-            # messages.error(request, 'Attendance NOT Marked!')
-        attendanceMarked = ": I have marked your attendance for the subject " + TTS.objects.filter(id=request.POST["subject"])[0].subject.name
+        form_class = CreateSession(request.POST)
+        nameListStructure[1] = detect(request)
         for name in nameListStructure["names"]:
-            notify.send(sender=request.user, recipient=student.objects.get(user__username=name).user, verb=attendanceMarked)
-        return render(request, template_name, {'nameList':nameListStructure["names"]})
+            notif.send(sender=request.user, recipient=student.objects.get(user__username=name).user, verb=attendanceMarked)
+        attendanceMarked = ": I have marked your attendance for the subject " + TTS.objects.filter(id=request.POST["Teacher_Teaches_Subject"])[0].subject.name
+        return render(request, template_name, {'nameList':nameListStructure["names"],'attendanceMarked':attendanceMarked})
     else:
-        form_class = chooseSubject()
-        form_class.fields["subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
-        return render(request, template_name, {'form':form_class})
+        form_class = chooseSession()
+        form_class.field["session"].queryset = SR.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(DateOfClass=datetime.datetime.now())
+        return render(request, template_name, {'form_class':form_class})
 
 
 
