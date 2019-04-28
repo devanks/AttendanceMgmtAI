@@ -1,12 +1,35 @@
 <!DOCTYPE html>
 {% load static %}
+{% load pwa %}
 <html>
   <head>
     <title>{% block head_title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% progressive_web_app_meta %}
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png"> -->
+	<!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"> -->
+	<!-- <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+	<!-- <link rel="manifest" href="/manifest.json"> -->
+	<!-- <meta name="msapplication-TileColor" content="#ffffff"> -->
+	<!-- <meta name="msapplication-TileImage" content="/ms-icon-144x144.png"> -->
+	<!-- <meta name="theme-color" content="#ffffff"> -->
 	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css-1.4.2.min.css"/> -->
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<!-- <link rel="stylesheet" href="{% static 'css/w3.css' %}" /> -->
+	<!-- <link rel="stylesheet" href="{% static 'font-awesome/css/all.css' %}" /> -->
+	
 	{% load notifications_tags %}
 	<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
 	{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}
@@ -28,6 +51,7 @@
 	</script>
   </head>
   <body>
+
     {% block body %}
 	<div class="w3-bar w3-teal w3-container w3-mobile">
 			<a href="{% url 'home' %}" class="w3-bar-item w3-button w3-mobile"><i class="fa fa-home"></i></a>

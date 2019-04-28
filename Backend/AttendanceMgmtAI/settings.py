@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'pwa',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -138,6 +139,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = [
+	os.path.join(BASE_DIR, "static"),
+]
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -157,5 +162,31 @@ SITE_ID = 1
 
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
+
+ANDROID_ICON = os.path.join(BASE_DIR,"static","images","icon","android-icon-192x192.png")
+
+#pwa settings for django-pwa package
+PWA_APP_NAME = 'Attendance Management'
+PWA_APP_DESCRIPTION = "Attendance Management using image processing"
+PWA_APP_THEME_COLOR = '#009688'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/',
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_ICONS = [
+    {
+        'src': ANDROID_ICON,
+        'sizes': '192x192'
+    }
+]
+# PWA_APP_SPLASH_SCREEN = [
+    # {
+        # 'src': '/static/images/icons/splash-640x1136.png',
+        # 'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    # }
+# ]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
 
 # end
