@@ -47,7 +47,6 @@ urlpatterns = [
     path('accounts/signup/', FRView.SignUp.as_view(), name='signup'),
     path('accounts/', include('allauth.urls')),
     path('teacher_portal/', FRView.TeacherHomePageView, name= 'teacher_portal'),
-    path('teacher_portal/createSession/', FRView.CreateSessionView, name= 'CreateSessionView'),
     path('teacher_portal/session/uploadPhoto', FRView.UploadTestView, name= 'test_home'),
     path('teacher_portal/StudentsList', FRView.StudentTookClassList, name= 'StudentsList'),
     path('student_portal/', FRView.StudentHomePageView, name= 'student_portal'),
