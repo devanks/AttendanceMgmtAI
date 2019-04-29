@@ -70,15 +70,15 @@ def HomePageView(request):
 def UploadTestView(request):
     template_name = 'simple_upload.html'
     if request.method == "POST":
-        form_class = CreateSession(request.POST)
-        nameListStructure[1] = detect(request)
+        form_class = createSession(request.POST)
+        nameListStructure = detect(request)
         for name in nameListStructure["names"]:
             notif.send(sender=request.user, recipient=student.objects.get(user__username=name).user, verb=attendanceMarked)
         attendanceMarked = ": I have marked your attendance for the subject " + TTS.objects.filter(id=request.POST["Teacher_Teaches_Subject"])[0].subject.name
         return render(request, template_name, {'nameList':nameListStructure["names"],'attendanceMarked':attendanceMarked})
     else:
         form_class = chooseSession()
-        form_class.field["session"].queryset = SR.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(DateOfClass=datetime.datetime.now())
+        form_class.fields["session"].queryset = SR.objects.filter(Teacher_Teaches_Subject__teacher__user__username=request.user.username).filter(DateOfClass=datetime.datetime.now())
         return render(request, template_name, {'form_class':form_class})
 
 

@@ -72,6 +72,8 @@ class StudentTookClass(models.Model):
 class SessionRecord(models.Model):
     Teacher_Teaches_Subject = models.ForeignKey(TeacherTeachesSubject,on_delete=models.CASCADE)
     DateOfClass = models.DateTimeField()
+    def __str__(self):
+        return self.Teacher_Teaches_Subject.teacher.user.first_name+" : "+self.Teacher_Teaches_Subject.subject.name#+" : "+self.DateOfClass.format("dd-mm-yyyy")
 
 class AttendanceRecord(models.Model):
     student = models.ForeignKey(Student,on_delete=models.CASCADE)

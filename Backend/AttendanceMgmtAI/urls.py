@@ -54,4 +54,5 @@ urlpatterns = [
     path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('privacyPolicy/', TemplateView.as_view(template_name='privacyPolicy.html'), name= 'privacyPolicy'),
 ]
