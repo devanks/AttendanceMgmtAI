@@ -1,0 +1,24 @@
+{% extends "baseSansMenu.html" %}
+{% load static %}
+
+{% block content %}
+	{% if request.method == "POST" %}
+		<H2>Attendance marked for the following students:</H2>
+		<ul>
+			{% for name in nameList %}
+				<li>{{ name }}</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+	<div class="w3-card">
+	  <form method="post" enctype="multipart/form-data" action="{% url 'test_home' %}">{% csrf_token %} 
+		<div class="w3-margin"> {{ form }} </div>
+		<input class="w3-input w3-margin-left w3-padding-32" type="file" name="image">
+		<a class="w3-panel w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-margin-left  " href="{% url 'home' %}">Back</a>
+		<button class="w3-panel w3-right  w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-margin-right " type="submit">Upload</button>
+	  </form>
+	
+		
+	{% endif %}
+	</div>
+{% endblock %}
