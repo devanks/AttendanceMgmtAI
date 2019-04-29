@@ -18,16 +18,16 @@ for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
 <div class="socialaccount_ballot">
 
-  <ul class="socialaccount_providers">
+  <!-- <ul class="socialaccount_providers"> -->
 	{% for provider in socialaccount_providers %}
-	<li>
-	  <a class="w3-btn w3-round-large w3-teal" title="{{provider.name}}" class="socialaccount_provider {{provider.id}}" 
-		href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
-	</li>
-	{% endfor %}
-  </ul>
 
-  <div class="login-or">{% trans 'OR' %}</div>
+	  <a class="w3-btn w3-round-large w3-teal w3-center" title="{{provider.name}}" class="socialaccount_provider {{provider.id}}"  style="width:100%"
+		href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">{{provider.name}}</a>
+
+	{% endfor %}
+  <!-- </ul> -->
+
+  <div class="login-or w3-center w3-panel" >{% trans 'OR' %}</div>
 
 </div>
 

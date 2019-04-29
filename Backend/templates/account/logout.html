@@ -3,19 +3,19 @@
 {% load i18n %}
 
 {% block head_title %}{% trans "Sign Out" %}{% endblock %}
-
+<div class="w3-container w3-mobile">
 {% block content %}
-<h1>{% trans "Sign Out" %}</h1>
+<span class="w3-center"><h1>{% trans "Sign Out" %}</h1></span>
 
-<p>{% trans 'Are you sure you want to sign out?' %}</p>
+<span class="w3-center"><p>{% trans 'Are you sure you want to sign out?' %}</p></span>
 
 <form method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button class="w3-btn w3-teal w3-round-large w3-margin-left" type="submit">{% trans 'Sign Out' %}</button>
+  <button class="w3-btn w3-teal w3-round-large " style="width:100%" type="submit">{% trans 'Sign Out' %}</button>
 </form>
 
-
+</div>
 {% endblock %}
