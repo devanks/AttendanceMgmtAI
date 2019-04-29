@@ -41,6 +41,7 @@ import notifications.urls
 # from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    url('', include('pwa.urls')),
     path('', FRView.HomePageView, name='home'),
     path('admin/', admin.site.urls, name='admin'),
     path('accounts/signup/', FRView.SignUp.as_view(), name='signup'),
