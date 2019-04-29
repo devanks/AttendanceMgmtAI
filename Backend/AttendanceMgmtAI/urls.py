@@ -41,6 +41,7 @@ import notifications.urls
 # from rest_framework.documentation import include_docs_urls
 
 urlpatterns = [
+    url('', include('pwa.urls')),
     path('', FRView.HomePageView, name='home'),
     path('admin/', admin.site.urls, name='admin'),
     path('accounts/signup/', FRView.SignUp.as_view(), name='signup'),
@@ -54,4 +55,5 @@ urlpatterns = [
     path('student_portal/check_attendance', FRView.StudentCheckAttendance, name= 'checkAttendance'),
     path('face_detection/detect/', FRView.detect, name='faceDetect'),
     url('^inbox/notifications/', include(notifications.urls, namespace='notifications')),
+    path('privacyPolicy/', TemplateView.as_view(template_name='privacyPolicy.html'), name= 'privacyPolicy'),
 ]
