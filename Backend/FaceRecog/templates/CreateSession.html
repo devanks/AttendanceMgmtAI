@@ -1,0 +1,20 @@
+{% extends "baseSansMenu.html" %}
+{% load static %}
+{% block extra_head%}
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	{{ form.media }}            {# Adds date-picker required JS and CSS #}
+	
+{% endblock %}
+{% block content %}
+	<div class="w3-card">
+	  <form method="post" enctype="multipart/form-data" action="{% url 'CreateSessionView' %}">{% csrf_token %} 
+		<div class="w3-margin"> {{ form }} </div>
+		<button class="w3-panel w3-margin-left  w3-mobile w3-btn w3-teal w3-round-large w3-padding " type="submit">Create Session</button>
+		<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-right w3-margin-right  " href="{% url 'home' %}">Back</a>
+	  </form>
+	</div>
+{% endblock %}

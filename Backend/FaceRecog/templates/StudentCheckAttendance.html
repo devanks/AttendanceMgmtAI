@@ -1,0 +1,21 @@
+{% extends "baseSansMenu.html" %}
+{% block content %}
+	<div class="w3-panel w3-mobile">
+	{% if request.method == "POST" %}
+			{% if StudentAttendanceList %}
+			Heyyy
+			<h1>{% for attendanceRecord in StudentAttendanceList %}
+				{{ attendanceRecord.studentTookClass.student.rollNumber }} {{ attendanceRecord.DateOfClass }} {{ attendanceRecord.studentTookClass.Teacher_Teaches_Subject.subject.code }}
+			{% endfor %}</h1>
+			{% else %}
+				<div class="w3-panel w3-teal"> You have not attended any classes.  <em>Get to it!</em></div>
+			{% endif %}
+	{% else %}
+		<form method="POST" action="{% url 'checkAttendance' %}" class=""><div class="w3-container">{% csrf_token %}
+			{{ form }}
+			<button class="w3-btn w3-teal w3-round-large" type="submit" class="">Select</button>
+		</form></div>
+		
+	{% endif %}
+	</div>
+{% endblock %}
