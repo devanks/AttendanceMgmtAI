@@ -1,5 +1,6 @@
 {% extends "baseSansMenu.html" %}
 {% load static %}
+{% block head_title %}Create Session{% endblock %}
 {% block extra_head%}
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -10,11 +11,29 @@
 	
 {% endblock %}
 {% block content %}
-	<div class="w3-card">
+	<div class="w3-content w3-center">
 	  <form method="post" enctype="multipart/form-data" action="{% url 'CreateSessionView' %}">{% csrf_token %} 
-		<div class="w3-margin"> {{ form }} </div>
-		<button class="w3-panel w3-margin-left  w3-mobile w3-btn w3-teal w3-round-large w3-padding " type="submit">Create Session</button>
-		<a class="w3-panel w3-margin-left w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-right w3-margin-right  " href="{% url 'home' %}">Back</a>
+	  {{ form.non_field_errors }}
+<div class="fieldWrapper">
+    {{ form.Teacher_Teaches_Subject.errors }}
+    <label for="{{ form.Teacher_Teaches_Subject.id_for_label }}" class="w3-margin-right">Subject:</label>
+    {{ form.Teacher_Teaches_Subject }}
+</div>
+
+<div class="fieldWrapper w3-panel">
+    {{ form.DateOfClass.errors }}
+    <label for="{{ form.DateOfClass.id_for_label }}">Date of class:</label>
+    {{ form.DateOfClass }}
+</div>
+
+
+	  
+	  
+	  
+		<!-- <div class="w3-margin w3-row"> {{ form }} </div> -->
+		<a class="w3-panel w3-margin-right w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-left   " href="{% url 'home' %}">Back</a>
+		<button class="w3-panel w3-margin-left  w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-right " type="submit">Create Session</button>
+
 	  </form>
 	</div>
 {% endblock %}
