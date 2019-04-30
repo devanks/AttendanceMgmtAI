@@ -10,7 +10,7 @@ import json
 import cv2
 import face_recognition
 import pickle
-from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR, Student as student, Teacher as teacher
+from .models import StudentTookClass as STC, TeacherTeachesSubject as TTS, AttendanceRecord as AR, SessionRecord as SR, Student as student, Teacher as teacher, CustomUser as CU
 
 from notifications.signals import notify
 
@@ -18,7 +18,7 @@ from django.urls import reverse_lazy
 
 import datetime
 
-from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject
+from .forms import CustomUserCreationForm, chooseSubject, checkAttendanceOfSubject, createSession, chooseSession
 
 from django.contrib.auth.decorators import user_passes_test
 
@@ -64,6 +64,9 @@ def CreateSessionView(request):
         form = createSession()
         form.fields["Teacher_Teaches_Subject"].queryset = TTS.objects.filter(teacher__user__username=request.user.username)
         return render(request, template_name,{'form': form})
+
+
+
 
 
 

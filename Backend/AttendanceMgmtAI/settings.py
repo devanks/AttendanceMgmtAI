@@ -160,11 +160,13 @@ SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 
+# ALlauth variables done
+
 ANDROID_ICON = os.path.join(BASE_DIR,"static","images","icon","android-icon-192x192.png")
 
 #pwa settings for django-pwa package
 PWA_APP_NAME = 'Attendance Management'
-PWA_APP_DESCRIPTION = "Attendance Management using image processing"
+PWA_APP_DESCRIPTION = "Attendance Management Using Image Processing"
 PWA_APP_THEME_COLOR = '#009688'
 PWA_APP_BACKGROUND_COLOR = '#ffffff'
 PWA_APP_DISPLAY = 'standalone'
@@ -183,7 +185,7 @@ PWA_APP_ICONS = [
         # 'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
     # }
 # ]
-PWA_APP_DIR = 'ltr'
 PWA_APP_LANG = 'en-US'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static', 'js', 'serviceworker.js')
 
 # end

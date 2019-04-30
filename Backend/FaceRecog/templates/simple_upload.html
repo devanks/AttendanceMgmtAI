@@ -1,32 +1,41 @@
 {% extends "baseSansMenu.html" %}
 {% load static %}
-
+{% block head_title %}Upload photo for recognition{% endblock %}
 {% block content %}
 	{% if request.method == "POST" %}
+		{% if formSession %}
+		<div class="w3-card">
+		  <form method="post" enctype="multipart/form-data" action="{% url 'test_home' %}">{% csrf_token %} 
+			<div class="w3-margin"> {{ form_class }} </div>
+			<input class="w3-input w3-margin-left w3-padding-32" type="file" name="image">
+			<a class="w3-panel w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-margin-left  " href="{% url 'home' %}">Back</a>
+			<button class="w3-panel w3-right  w3-mobile w3-btn w3-teal w3-round-large w3-padding w3-margin-right " type="submit">Upload</button>
+		  </form>
+		</div>
+		{% else %}
 		<H2>Attendance marked for the following students:</H2>
 		<ul>
 			{% for name in nameList %}
 				<li>{{ name }}</li>
 			{% endfor %}
 		</ul>
+		{% endif %}
 	{% else %}
-	<!-- <div class="w3-card"> -->
 	  <form class="w3-padding w3-content w3-mobile" method="post" enctype="multipart/form-data" action="{% url 'test_home' %}">{% csrf_token %} 
 		
 		
 		<!-- {{ form.subject.errors }} -->
 		<!-- <label for="{{ form.subject.id_for_label }}">Subject:</label> -->
 		<!-- {{ form.subject }} -->
-		{{form}}
+		{{ form_class }}
 
 
 		<!-- <div class="w3-margin"> {{ form }} </div> -->
-		<input class="w3-input w3-margin-top" type="file" name="image">
+		<input class="w3-input w3-margin-top" type="file" name="image"/>
 		<a class="w3-margin-top w3-btn w3-teal w3-round-large" href="{% url 'home' %}">Back</a>
 		<button class="w3-margin-top w3-right w3-btn w3-teal w3-round-large" type="submit">Upload</button>
 	  </form>
 	
 		
 	{% endif %}
-	<!-- </div> -->
 {% endblock %}
