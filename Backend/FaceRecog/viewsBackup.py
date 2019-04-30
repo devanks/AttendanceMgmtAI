@@ -106,15 +106,12 @@ def StudentCheckAttendance(request):
     template_name = 'StudentCheckAttendance.html'
     if request.method == "POST":
         form_class = checkAttendanceOfSubject(request.POST)
-        # TTSID = STC.objects.get(id=).Teacher_Teaches_Subject.id
-        # StudentAttendanceList = STC.objects.filter(student__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
-        Total= SR.objects.filter(Teacher_Teaches_Subject__id=request.POST['Teacher_Teaches_Subject']).count()
-        Attended=AR.objects.filter(student__user__username=request.user.username).filter(session__Teacher_Teaches_Subject__id=request.POST['Teacher_Teaches_Subject']).count()
-        return render(request, template_name, {'Total':Total,'Attended':Attended})
+        StudentAttendanceList = STC.objects.filter(student__user__username=request.user.username).filter(Teacher_Teaches_Subject__subject__id=request.POST['Teacher_Teaches_Subject'])
+        return render(request, template_name, {'StudentAttendanceList':StudentAttendanceList})
     else:
         form_class = checkAttendanceOfSubject()
-        form_class.fields["Teacher_Teaches_Subject"].queryset = STC.objects.filter(student__user__username=request.user.username).values_list("Teacher_Teaches_Subject", flat=True)
-        return render(request, template_name, {'form_class': form_class})
+        # form_class.fields["Teacher_Teaches_Subject"].queryset = STC.objects.filter(student__user__username=request.user.username)
+        return render(request, template_name, {'form': form_class})
 
 @user_passes_test(check_if_teacher, login_url='/accounts/login/?=access-denied-for-students/', redirect_field_name=None)
 def StudentTookClassList(request):
