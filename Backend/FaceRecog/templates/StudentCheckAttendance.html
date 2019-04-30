@@ -1,6 +1,6 @@
 {% extends "baseSansMenu.html" %}
 {% block content %}
-	<div class="w3-panel w3-center w3-mobile">
+	<div class="w3-panel w3-mobile">
 	{% if request.method == "POST" %}
 			{% if StudentAttendanceList %}
 			Heyyy
@@ -11,14 +11,9 @@
 				<div class="w3-panel w3-teal"> You have not attended any classes.  <em>Get to it!</em></div>
 			{% endif %}
 	{% else %}
-		<form method="POST" action="{% url 'checkAttendance' %}" class="">{% csrf_token %}
-			<!-- <div class="margin-top">{{ form }}</div> -->
-			<div class="fieldWrapper w3-center">
-			{{ form.subject.errors }}
-			<label for="{{ id_Teacher_Teaches_Subject }}">Subject:</label>
-			{{ form.Teacher_Teaches_Subject }}
-			</div>
-			<button class="w3-btn w3-teal w3-round-large w3-margin-top" style="width:100%" type="submit" >Select</button>
+		<form method="POST" action="{% url 'checkAttendance' %}" class=""><div class="w3-container">{% csrf_token %}
+			{{ form }}
+			<button class="w3-btn w3-teal w3-round-large" type="submit" class="">Select</button>
 		</form></div>
 		
 	{% endif %}
