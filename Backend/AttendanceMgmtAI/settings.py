@@ -189,6 +189,6 @@ PWA_APP_ICONS = [
     # }
 # ]
 PWA_APP_LANG = 'en-US'
-PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static', 'js', 'serviceworker.js')
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'FaceRecog', 'static', 'js', 'serviceworker.js')
 
 # end
