@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
@@ -89,7 +88,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'AttendanceMgmtAI.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
@@ -99,7 +97,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -119,7 +116,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -133,25 +129,22 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-	os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
 ]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-
-#allauth required variables
+# allauth required variables
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
@@ -165,9 +158,9 @@ ACCOUNT_USERNAME_REQUIRED = False
 
 # ALlauth variables done
 
-ANDROID_ICON = os.path.join(BASE_DIR,"static","images","icon","android-icon-192x192.png")
+ANDROID_ICON = os.path.join(BASE_DIR, "static", "images", "icon", "android-icon-192x192.png")
 
-#pwa settings for django-pwa package
+# pwa settings for django-pwa package
 PWA_APP_NAME = 'Attendance Management'
 PWA_APP_DESCRIPTION = "Attendance Management Using Image Processing"
 PWA_APP_THEME_COLOR = '#009688'
@@ -183,10 +176,10 @@ PWA_APP_ICONS = [
     }
 ]
 # PWA_APP_SPLASH_SCREEN = [
-    # {
-        # 'src': '/static/images/icons/splash-640x1136.png',
-        # 'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
-    # }
+# {
+# 'src': '/static/images/icons/splash-640x1136.png',
+# 'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+# }
 # ]
 PWA_APP_LANG = 'en-US'
 PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'FaceRecog', 'static', 'js', 'serviceworker.js')
